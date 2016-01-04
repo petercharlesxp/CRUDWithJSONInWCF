@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -12,6 +13,8 @@ namespace CRUDWithJSONInWCF
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     public class ServiceProduct : IServiceProduct
     {
+        public static string defaultConnectionString = "Database=acsm_4d3f887b066b686;Data Source=us-cdbr-azure-east-a.cloudapp.net;User Id=b574c7fdb57220;Password=115b668d";
+        MySqlConnection connection;
         public List<Product> findAll()
         {
             using (MyDemoEntities mde = new MyDemoEntities())
