@@ -10,24 +10,96 @@ namespace CRUDWithJSONInWCF
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in code, svc and config file together.
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
-    public class Service1 : IServiceProduct
+    public class ServiceProduct : IServiceProduct
     {
-        public string GetData(int value)
+        public List<Product> findAll()
         {
-            return string.Format("You entered: {0}", value);
+            using (MyDemoEntities mde = new MyDemoEntities())
+            {
+                return mde.ProductEntities.Select(pe => new Product
+                    {
+                        Id = pe.Id,
+                        Name = pe.Name,
+                        Price = pe.Price.Value,
+                        Quantity = pe.Quantity.Value
+                    }).ToList();
+            }
         }
 
-        public CompositeType GetDataUsingDataContract(CompositeType composite)
+        public Product find(string id)
         {
-            if (composite == null)
+            using (MyDemoEntities mde = new MyDemoEntities())
             {
-                throw new ArgumentNullException("composite");
+                int nid = Convert.ToInt32(id);
+                return mde.ProductEntities.Where(pe => pe.Id == nid).Select(pe => new Product
+                {
+                    Id = pe.Id,
+                    Name = pe.Name,
+                    Price = pe.Price.Value,
+                    Quantity = pe.Quantity.Value
+                }).First();
             }
-            if (composite.BoolValue)
+        }
+
+        public bool create(Product product)
+        {
+            using (MyDemoEntities mde = new MyDemoEntities())
             {
-                composite.StringValue += "Suffix";
+                try
+                {
+                    ProductEntity pe = new ProductEntity();
+                    pe.Name = product.Name;
+                    pe.Price = product.Price;
+                    pe.Quantity = product.Quantity;
+                    mde.ProductEntities.Add(pe);
+                    mde.SaveChanges();
+                    return true;
+                }
+                catch 
+                {
+                    return false;
+                }
             }
-            return composite;
+        }
+
+        public bool edit(Product product)
+        {
+            using (MyDemoEntities mde = new MyDemoEntities())
+            {
+                try
+                {
+                    int id = Convert.ToInt32(product.Id);
+                    ProductEntity pe = mde.ProductEntities.Single(p => p.Id == id);
+                    pe.Name = product.Name;
+                    pe.Price = product.Price;
+                    pe.Quantity = product.Quantity;
+                    mde.SaveChanges();
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
+
+        public bool delete(Product product)
+        {
+            using (MyDemoEntities mde = new MyDemoEntities())
+            {
+                try
+                {
+                    int id = Convert.ToInt32(product.Id);
+                    ProductEntity pe = mde.ProductEntities.Single(p => p.Id == id);
+                    mde.ProductEntities.Remove(pe);
+                    mde.SaveChanges();
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
         }
     }
 }

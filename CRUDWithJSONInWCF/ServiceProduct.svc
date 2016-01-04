@@ -1,1 +1,1 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" Service="CRUDWithJSONInWCF.Service1" CodeBehind="ServiceProduct.svc.cs" %>
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="CRUDWithJSONInWCF.ServiceProduct" CodeBehind="ServiceProduct.svc.cs" %>

@@ -12,36 +12,31 @@ namespace CRUDWithJSONInWCF
     [ServiceContract]
     public interface IServiceProduct
     {
+        [OperationContract]
+        [WebInvoke(Method="GET", UriTemplate="findall", ResponseFormat=
+            WebMessageFormat.Json)]
+        List<Product> findAll();
 
         [OperationContract]
-        string GetData(int value);
+        [WebInvoke(Method = "GET", UriTemplate = "findall/{id}", ResponseFormat =
+            WebMessageFormat.Json)]
+        Product find(string id);
 
         [OperationContract]
-        CompositeType GetDataUsingDataContract(CompositeType composite);
+        [WebInvoke(Method = "POST", UriTemplate = "create", ResponseFormat =
+            WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        bool create(Product product);
 
-        // TODO: Add your service operations here
-    }
+        [OperationContract]
+        [WebInvoke(Method = "PUT", UriTemplate = "edit", ResponseFormat =
+            WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        bool edit(Product product);
+
+        [OperationContract]
+        [WebInvoke(Method = "DELETE", UriTemplate = "delete", ResponseFormat =
+            WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        bool delete(Product product);
 
 
-    // Use a data contract as illustrated in the sample below to add composite types to service operations.
-    [DataContract]
-    public class CompositeType
-    {
-        bool boolValue = true;
-        string stringValue = "Hello ";
-
-        [DataMember]
-        public bool BoolValue
-        {
-            get { return boolValue; }
-            set { boolValue = value; }
-        }
-
-        [DataMember]
-        public string StringValue
-        {
-            get { return stringValue; }
-            set { stringValue = value; }
-        }
     }
 }

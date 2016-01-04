@@ -13,9 +13,9 @@ namespace CRUDWithJSONInWCF
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class acsm_4d3f887b066b686Entities : DbContext
+    public partial class MyDemoEntities : DbContext
     {
-        public acsm_4d3f887b066b686Entities()
+        public MyDemoEntities()
             : base("name=acsm_4d3f887b066b686Entities")
         {
         }
@@ -25,6 +25,6 @@ namespace CRUDWithJSONInWCF
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<mydemoproduct> mydemoproducts { get; set; }
+        public virtual DbSet<ProductEntity> ProductEntities { get; set; }
     }
 }

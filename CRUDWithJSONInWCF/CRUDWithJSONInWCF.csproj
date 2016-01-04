@@ -110,7 +110,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelMydemo.edmx</DependentUpon>
     </Compile>
-    <Compile Include="mydemoproduct.cs">
+    <Compile Include="Product.cs" />
+    <Compile Include="ProductEntity.cs">
       <DependentUpon>ModelMydemo.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceProduct.svc.cs">

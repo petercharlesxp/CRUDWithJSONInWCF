@@ -23,7 +23,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="mydemoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="mydemoproduct">
+        <EntityType Name="ProductEntity">
           <Key>
             <PropertyRef Name="id" />
           </Key>
@@ -34,7 +34,7 @@
           <Property Name="Creationdate" Type="DateTime" Nullable="false" />
         </EntityType>
         <EntityContainer Name="acsm_4d3f887b066b686Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="mydemoproducts" EntityType="Self.mydemoproduct" />
+          <EntitySet Name="ProductEntities1" EntityType="mydemoModel.ProductEntity" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -42,8 +42,8 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="mydemoModelStoreContainer" CdmEntityContainer="acsm_4d3f887b066b686Entities">
-          <EntitySetMapping Name="mydemoproducts">
-            <EntityTypeMapping TypeName="mydemoModel.mydemoproduct">
+          <EntitySetMapping Name="ProductEntities1">
+            <EntityTypeMapping TypeName="mydemoModel.ProductEntity">
               <MappingFragment StoreEntitySet="mydemoproduct">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
